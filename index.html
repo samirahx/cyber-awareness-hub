@@ -208,53 +208,85 @@
     border-color: var(--light-blue);
   }
 
-  /* Q&A Section */
+/* Q&A Section */
+section#qa {
+  background: var(--med-blue);
+  border-radius: 30px;
+  padding: 30px 15px 30px 15px; /* less horizontal padding for small screens */
+  margin-bottom: 50px;
+  color: var(--dark-blue);
+  box-shadow: 0 8px 25px var(--shadow);
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+section#qa h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  border-bottom: 3px solid var(--baby-blue);
+  padding-bottom: 6px;
+  color: #f8f9fa;
+}
+
+form.qa-form {
+  display: grid;
+  gap: 25px;
+}
+
+.qa-question {
+  background-color: #caecf1;
+  border-radius: 20px;
+  padding: 15px 20px;
+  font-weight: 600;
+}
+
+.qa-question p {
+  margin: 0 0 10px 0;
+  color: var(--dark-blue);
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* allow wrapping on small screens */
+}
+
+.options label {
+  flex: 1 1 45%; /* flexible width, about half the container */
+  min-width: 120px; /* minimum size for readability */
+  background: var(--baby-blue);
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  color: var(--dark-blue);
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Responsive tweak for very small screens */
+@media (max-width: 480px) {
   section#qa {
-    background: var(--med-blue);
-    border-radius: 30px;
-    padding: 30px 40px;
-    margin-bottom: 50px;
-    color: var(--dark-blue);
-    box-shadow: 0 8px 25px var(--shadow);
-  }
-  section#qa h3 {
-    font-family: 'Merriweather', serif;
-    font-size: 2.2rem;
-    margin-bottom: 25px;
-    border-bottom: 3px solid var(--baby-blue);
-    padding-bottom: 6px;
-    color:#f8f9fa;
-  }
-  form.qa-form {
-    display: grid;
-    gap: 25px;
-  }
-  .qa-question {
-    background-color: #caecf1;
-    border-radius: 20px;
-    padding: 15px 20px;
-    font-weight: 600;
-  }
-  .qa-question p {
-    margin: 0 0 10px 0;
-    color: var(--dark-blue);
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .options {
-    display: flex;
-    gap: 20px;
+    gap: 10px;
   }
   .options label {
-    flex: 1;
-    background: var(--baby-blue);
-    padding: 8px 12px;
-    border-radius: 15px;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-    color: var(--dark-blue);
-    transition: background-color 0.3s ease;
+    flex: 1 1 100%; /* full width on mobile */
+    min-width: auto;
   }
+}
+
+/* Prevent horizontal scroll globally */
+body, html {
+  overflow-x: hidden;
+}
+
 .options label:hover {
     background: var(--light-blue);
   }
