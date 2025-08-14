@@ -542,7 +542,7 @@
       </ul>
     </section>
 
-    <section id="case-studies" aria-label="Cybercrime in Moldova: Real Case Studies">
+      <section id="case-studies" aria-label="Cybercrime in Moldova: Real Case Studies">
       <h3>Cybercrime in Moldova: Real Case Studies</h3>
       <p>Share your story anonymously. Your experience might help others stay safe.</p>
 
@@ -554,15 +554,6 @@
           ✅ Thank you! Your story has been submitted.
         </p>
       </form>
-
-      <!-- Admin only: stories container, hidden by default -->
-      <section id="adminStories" style="display:none; margin-top:20px;">
-        <h4>Admin: Submitted Stories</h4>
-        <ul id="storiesList"></ul>
-        <button id="hideAdminView">Hide Admin View</button>
-      </section>
-
-      <button id="showAdminView" style="margin-top:20px;">Show Admin View (Click to toggle)</button>
     </section>
 
     <script>
@@ -570,21 +561,14 @@
       const storyInput = document.getElementById('storyInput');
       const confirmationMessage = document.getElementById('confirmationMessage');
 
-      const adminStoriesSection = document.getElementById('adminStories');
-      const storiesList = document.getElementById('storiesList');
-      const showAdminViewBtn = document.getElementById('showAdminView');
-      const hideAdminViewBtn = document.getElementById('hideAdminView');
-
       storyForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
         const text = storyInput.value.trim();
         if (!text) return;
 
-        // Save to localStorage
-        let stories = JSON.parse(localStorage.getItem('stories')) || [];
-        stories.push(text);
-        localStorage.setItem('stories', JSON.stringify(stories));
+        // Here you can connect to backend, or just show confirmation
+        // For now, no storage or display — just thank user
 
         storyInput.value = '';
         confirmationMessage.style.display = 'block';
@@ -592,33 +576,6 @@
         setTimeout(() => {
           confirmationMessage.style.display = 'none';
         }, 3000);
-      });
-
-      function loadAdminStories() {
-        storiesList.innerHTML = '';
-        let stories = JSON.parse(localStorage.getItem('stories')) || [];
-
-        if (stories.length === 0) {
-          storiesList.innerHTML = '<li>No stories submitted yet.</li>';
-          return;
-        }
-
-        stories.forEach((story, i) => {
-          const li = document.createElement('li');
-          li.textContent = story;
-          storiesList.appendChild(li);
-        });
-      }
-
-      showAdminViewBtn.addEventListener('click', () => {
-        loadAdminStories();
-        adminStoriesSection.style.display = 'block';
-        showAdminViewBtn.style.display = 'none';
-      });
-
-      hideAdminViewBtn.addEventListener('click', () => {
-        adminStoriesSection.style.display = 'none';
-        showAdminViewBtn.style.display = 'inline-block';
       });
     </script>
 
