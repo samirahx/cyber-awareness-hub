@@ -542,7 +542,7 @@
       </ul>
     </section>
 
-      <section id="case-studies" aria-label="Cybercrime in Moldova: Real Case Studies">
+        <section id="case-studies" aria-label="Cybercrime in Moldova: Real Case Studies">
       <h3>Cybercrime in Moldova: Real Case Studies</h3>
       <p>Share your story anonymously. Your experience might help others stay safe.</p>
 
@@ -556,29 +556,53 @@
       </form>
     </section>
 
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
     <script>
+      // Your Firebase config copied from console:
+      const firebaseConfig = {
+        apiKey: "AIzaSyBm1cF7Fo0VQBQXgLqqaQvsHiFIFGg84Cg",
+        authDomain: "cyber-moldova.firebaseapp.com",
+        projectId: "cyber-moldova",
+        storageBucket: "cyber-moldova.firebasestorage.app",
+        messagingSenderId: "877008902558",
+        appId: "1:877008902558:web:a8ac10913a786d0c975e8f",
+        measurementId: "G-24ZYGQX198"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Initialize Firestore
+      const db = firebase.firestore();
+
       const storyForm = document.getElementById('storyForm');
       const storyInput = document.getElementById('storyInput');
       const confirmationMessage = document.getElementById('confirmationMessage');
 
-      storyForm.addEventListener('submit', function (e) {
+      storyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const text = storyInput.value.trim();
         if (!text) return;
 
-        // Here you can connect to backend, or just show confirmation
-        // For now, no storage or display — just thank user
-
-        storyInput.value = '';
-        confirmationMessage.style.display = 'block';
-
-        setTimeout(() => {
-          confirmationMessage.style.display = 'none';
-        }, 3000);
+        try {
+          await db.collection('stories').add({
+            story: text,
+            status: 'private',              // recommended: mark story as private by default
+            submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          confirmationMessage.style.display = 'block';
+          storyInput.value = '';
+          setTimeout(() => {
+            confirmationMessage.style.display = 'none';
+          }, 3000);
+        } catch (error) {
+          alert('Failed to submit story. Please try again.');
+          console.error(error);
+        }
       });
     </script>
-
 
     <section id="qa" aria-label="Cyber Awareness Q&A">
       <h3>Quick Q&amp;A</h3>
